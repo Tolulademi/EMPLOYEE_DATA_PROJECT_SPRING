@@ -1,5 +1,7 @@
 package com.employee.dao;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import com.employee.entity.Employee;
 
 
 @Repository
+@Transactional
 public class EmployeeDaoImpl implements EmployeeDao {
 	
 	@Autowired

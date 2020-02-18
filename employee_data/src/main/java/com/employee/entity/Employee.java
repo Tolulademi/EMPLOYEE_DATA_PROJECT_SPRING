@@ -16,12 +16,15 @@ public class Employee {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="employeeId")
+	@Column(name="employee_id")
 	private int  employeeId;
 	
 	@Column(name="firstName")
 	private String firstName;
 	
+	public Employee() {
+		
+	}
 	public Employee(int employeeId, String firstName, String lastName, Date dateOfBirth, String email,
 			String phoneNumber) {
 		super();
