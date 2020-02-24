@@ -16,23 +16,29 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.employee.entity.Employee;
 
-
-
- @Sql(scripts= {"classpath:/db/create-tables.sql"})
+ 
+ @Sql(scripts= {"classpath:/db/create-tables.sql", "classpath:/db/insert-employees.sql"})
  @ContextConfiguration("classpath:data-context.xml")
  @RunWith(SpringRunner.class)
 public class EmployeeDaoImplTest {
 	 
 	 
+	 @Autowired
+	 private Environment env;
+	 
+	 
 	 
 	 @Autowired // we wired in the bean of the employeeDao
-	 EmployeeDao employeeDaoImpl;
+	 private EmployeeDao employeeDaoImpl;
 
 	/**
 	 * @throws java.lang.Exception
@@ -49,33 +55,10 @@ public class EmployeeDaoImplTest {
 	}
 
 	@Test
-	public void dbConnectionTest() throws SQLException {
-		String jdbcUrl = "jdbc:mysql://localhost:3306/employee_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-		String user = "employee_user";
-		String password = "employee123";
-		String driver = "com.mysql.cj.jdbc.Driver";
-		
-		
-		
-		Connection dbCon = null;
-		try {
-			dbCon = DriverManager.getConnection(jdbcUrl, user, password );
-			
-			assertThat(dbCon).isNotNull();
-			assertNotNull(dbCon);
-			}
-			catch(SQLException sqle) {
-				sqle.printStackTrace();
-		
-		}
-			finally {
-				dbCon.close();
-			}
-		
-	}
 	
 	
-	@Test
+	
+
 	public void saveEmployeeToDBTest() {
 		
 		
@@ -95,12 +78,27 @@ public class EmployeeDaoImplTest {
 		int id = newEmployee.getEmployeeId();
 		Employee existingEmployee = employeeDaoImpl.getById(id);
 		assertThat(existingEmployee).isNotNull();
-		//assertThat(existingEmployee)employeeDate.
+		
 		
 		
 		
 	}
 	
+	@Test
+	public void getEmployeeByEmailTest() {
+		
+		assertThat(employeeDaoImpl).isNotNull();
+		
+		Employee savedEmployee = employeeDaoImpl.getByEmail("ray@mail.com");
+		
+		assertThat(savedEmployee).isNotNull();
+		
+		assertThat(savedEmployee.getEmployeeId()).isEqualTo(4);
+		
+		System.out.println(savedEmployee);
+		
+		
+	}
 	
 	
 	

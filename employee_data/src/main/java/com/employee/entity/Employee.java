@@ -22,7 +22,9 @@ public class Employee {
 	@Column(name="firstName")
 	private String firstName;
 	
+	
 	public Employee() {
+		
 		
 	}
 	public Employee(int employeeId, String firstName, String lastName, Date dateOfBirth, String email,
@@ -94,6 +96,11 @@ public class Employee {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", dateOfBirth=" + dateOfBirth + ", email=" + email + ", phoneNumber=" + phoneNumber + "]";
 	}
 	
 	
