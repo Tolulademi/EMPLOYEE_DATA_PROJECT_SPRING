@@ -60,4 +60,29 @@ public class EmployeeServiceImplTest {
 		verify(employeeDaoImpl, times(1)).saveEmployee(tempEmployee);
 	}
 
+	
+	@Test
+	public void getEmployeeByIdTest() {
+		
+		Employee tempEmployee = new Employee();
+		
+		when(employeeDaoImpl.getById(1)).thenReturn(tempEmployee);
+		
+		employeeDaoImpl.getById(1);
+		
+		verify(employeeDaoImpl, times(1)).getById(1);
+	}
+	
+	@Test
+	public void getEmployeeByEmail() {
+		
+		Employee tempEmployee = new Employee();
+		
+		when(employeeDaoImpl.getByEmail("test@mail.com")).thenReturn(tempEmployee);
+		
+		employeeDaoImpl.getByEmail("test@mail.com");
+		
+		verify(employeeDaoImpl, times(1)).getByEmail("test@mail.com");
+
+	}
 }
